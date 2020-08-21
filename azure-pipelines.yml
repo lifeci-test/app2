@@ -6,8 +6,16 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+pool: 
+  name: phx-automation-ci
+  # demands:
+  # - myCustomCapability   # check for existence of capability
+  # - agent.os -equals Darwin  # check for specific string in capability
+
+  # vmImage: string # name of the VM image you want
+
+# pool:
+#   vmImage: 'ubuntu-latest'
 
 steps:
 - script: echo Hello, world!
