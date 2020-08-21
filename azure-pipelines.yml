@@ -8,6 +8,7 @@ trigger:
 
 pool: 
   name: phx-automation-ci
+  
   # demands:
   # - myCustomCapability   # check for existence of capability
   # - agent.os -equals Darwin  # check for specific string in capability
