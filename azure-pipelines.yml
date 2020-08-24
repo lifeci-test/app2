@@ -9,7 +9,7 @@ parameters:
 - name: cd_pool
   displayName: Deployment Pool based on own Agents
   type: string
-  default: test-deployment-group-0
+  default: test-deployment-group-1
 
 trigger:
 - master
