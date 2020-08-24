@@ -6,21 +6,17 @@ parameters:
   # values:
   # - phx-automation-ci-1
 
+- name: cd_pool
+  displayName: Deployment Pool based on own Agents
+  type: string
+  default: test-deployment-group-0
+
 
 trigger:
 - master
 
-pool: 
-  name: phx-automation-ci
-  
-  # demands:
-  # - myCustomCapability   # check for existence of capability
-  # - agent.os -equals Darwin  # check for specific string in capability
-
-  # vmImage: string # name of the VM image you want
-
-# pool:
-#   vmImage: 'ubuntu-latest'
+# pool: 
+#   name: ${{ parameters.ci_pool }}
 
 stages:
 - stage: Build
@@ -36,10 +32,12 @@ stages:
   jobs:
   - job: TestOnWindows
     displayName: The Test on Windows
+    #pool: ${{ parameters.windows_pool }} 
     steps:
     - script: echo Testing on Windows!
   - job: TestOnLinux
     displayName: The Test on Linux
+    #pool: ${{ parameters.linux_pool }} 
     steps:
     - script: echo Testing on Linux!
 - stage: Deploy
