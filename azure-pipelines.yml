@@ -43,22 +43,23 @@ stages:
 - stage: Deploy
   displayName: The Deployment stage
   dependsOn: Test
-  pool:
-    name: ${{ parameters.cd_pool }} 
+  # pool:
+  #   name: ${{ parameters.cd_pool }} 
   jobs:
   - job: Deploy
     displayName: The Deployment as job
     steps:
     - script: echo Deploying the code!
 
-  #   # https://docs.microsoft.com/en-in/azure/devops/pipelines/process/deployment-jobs?view=azure-devops#examples
-  # - deployment: DeployK8s
-  #   displayName: The Deploy as deployment k8s job
-  #   dependsOn: Deploy 
-  #   environment: 'smarthotel-dev'
-  #   pool: ${{ parameters.cd_pool }}
-  #   strategy:
-  #     runOnce:
-  #       deploy:
-  #         steps:
-  #         - script: echo my first deployment
+    # https://docs.microsoft.com/en-in/azure/devops/pipelines/process/deployment-jobs?view=azure-devops#examples
+  - deployment: DeployK8s
+    displayName: The Deploy as deployment k8s job
+    dependsOn: Deploy 
+    environment: 'phx-dev'
+    pool: 
+      name: ${{ parameters.cd_pool }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo my first deployment
