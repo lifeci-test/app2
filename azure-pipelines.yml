@@ -56,8 +56,8 @@ stages:
     displayName: The Deploy as deployment k8s job
     dependsOn: Deploy 
     environment: 'phx-dev'
-    pool: 
-      name: ${{ parameters.cd_pool }}
+    # pool: 
+    #   name: ${{ parameters.cd_pool }}
     strategy:
       runOnce:
         deploy:
