@@ -43,7 +43,8 @@ stages:
 - stage: Deploy
   displayName: The Deployment stage
   dependsOn: Test
-  pool: ${{ parameters.cd_pool }} 
+  pool:
+    name: ${{ parameters.cd_pool }} 
   jobs:
   - job: Deploy
     displayName: The Deployment as job
