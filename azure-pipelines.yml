@@ -1,7 +1,11 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+parameters:
+- name: ci_pool
+  displayName: Pool based on own Agents
+  type: string
+  default: phx-automation-ci
+  # values:
+  # - phx-automation-ci-1
+
 
 trigger:
 - master
@@ -18,11 +22,30 @@ pool:
 # pool:
 #   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+- stage: The Build stage
+  displayName: The Build
+  jobs:
+  - job: BuildJob
+    displayName: The BuildJob
+    pool: ${{ paramenters.ci_pool }}
+    steps:
+    - script: echo Building!
+- stage: Test
+  displayName: The Test stage
+  jobs:
+  - job: TestOnWindows
+    displayName: The Test on Windows
+    steps:
+    - script: echo Testing on Windows!
+  - job: TestOnLinux
+    displayName: The Test on Linux
+    steps:
+    - script: echo Testing on Linux!
+- stage: Deploy
+  displayName: The Building stage
+  jobs:
+  - job: Deploy
+    displayName: The Deployment
+    steps:
+    - script: echo Deploying the code!
