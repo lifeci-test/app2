@@ -28,7 +28,7 @@ stages:
   jobs:
   - job: BuildJob
     displayName: The BuildJob
-    pool: ${{ paramenters.ci_pool }}
+    pool: ${{ parameters.ci_pool }}
     steps:
     - script: echo Building!
 - stage: Test
