@@ -41,9 +41,9 @@ stages:
     steps:
     - script: echo Testing on Linux!
 - stage: Deploy
-  displayName: The Building stage
+  displayName: The Deployment stage
   dependsOn: Test
-  #pool: ${{ parameters.cd_pool }} 
+  pool: ${{ parameters.cd_pool }} 
   jobs:
   - job: Deploy
     displayName: The Deployment as job
