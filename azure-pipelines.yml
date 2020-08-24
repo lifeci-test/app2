@@ -23,8 +23,8 @@ pool:
 #   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: The Build stage
-  displayName: The Build
+- stage: Build
+  displayName: The Build Stage
   jobs:
   - job: BuildJob
     displayName: The BuildJob
