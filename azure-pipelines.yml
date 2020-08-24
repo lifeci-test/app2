@@ -1,0 +1,65 @@
+parameters:
+- name: ci_pool
+  displayName: Pool based on own Agents
+  type: string
+  default: phx-automation-ci
+  # values:
+  # - phx-automation-ci-1
+
+- name: cd_pool
+  displayName: Deployment Pool based on own Agents
+  type: string
+  default: test-deployment-group-0
+
+trigger:
+- master
+
+# pool: 
+#   name: ${{ parameters.ci_pool }}
+
+stages:
+- stage: Build
+  displayName: The Build Stage
+  jobs:
+  - job: BuildJob
+    displayName: The BuildJob
+    pool: ${{ parameters.ci_pool }}
+    steps:
+    - script: echo Building!
+- stage: Test
+  displayName: The Test stage
+  dependsOn: Build
+  jobs:
+  - job: TestOnWindows
+    displayName: The Test on Windows
+    #pool: ${{ parameters.windows_pool }} 
+    steps:
+    - script: echo Testing on Windows!
+  - job: TestOnLinux
+    displayName: The Test on Linux
+    #pool: ${{ parameters.linux_pool }} 
+    steps:
+    - script: echo Testing on Linux!
+- stage: Deploy
+  displayName: The Deployment stage
+  dependsOn: Test
+  # pool:
+  #   name: ${{ parameters.cd_pool }} 
+  jobs:
+  - job: Deploy
+    displayName: The Deployment as job
+    steps:
+    - script: echo Deploying the code!
+
+    # https://docs.microsoft.com/en-in/azure/devops/pipelines/process/deployment-jobs?view=azure-devops#examples
+  - deployment: DeployK8s
+    displayName: The Deploy as deployment k8s job
+    dependsOn: Deploy 
+    environment: 'phx-dev'
+    # pool: 
+    #   name: ${{ parameters.cd_pool }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo my first deployment
